@@ -11,6 +11,11 @@
 		DBC5068C27C3D16700C45440 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5068B27C3D16700C45440 /* ContentView.swift */; };
 		DBC5068E27C3D16800C45440 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBC5068D27C3D16800C45440 /* Assets.xcassets */; };
 		DBC5069127C3D16800C45440 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBC5069027C3D16800C45440 /* Preview Assets.xcassets */; };
+		DBC5069A27C3D1F000C45440 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5069927C3D1F000C45440 /* Repository.swift */; };
+		DBC5069E27C3D21E00C45440 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5069D27C3D21E00C45440 /* Item.swift */; };
+		DBC506A027C666CA00C45440 /* ArticleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC5069F27C666CA00C45440 /* ArticleList.swift */; };
+		DBC506A227C916E500C45440 /* ArticleDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC506A127C916E500C45440 /* ArticleDetail.swift */; };
+		DBC6ECFD27C9D6060034EC1E /* ArticleWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6ECFC27C9D6060034EC1E /* ArticleWebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +24,11 @@
 		DBC5068B27C3D16700C45440 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DBC5068D27C3D16800C45440 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBC5069027C3D16800C45440 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DBC5069927C3D1F000C45440 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		DBC5069D27C3D21E00C45440 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		DBC5069F27C666CA00C45440 /* ArticleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleList.swift; sourceTree = "<group>"; };
+		DBC506A127C916E500C45440 /* ArticleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetail.swift; sourceTree = "<group>"; };
+		DBC6ECFC27C9D6060034EC1E /* ArticleWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +61,15 @@
 		DBC5068827C3D16700C45440 /* QiitaArticleListSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				DBC5068927C3D16700C45440 /* QiitaArticleListSwiftUIApp.swift */,
-				DBC5068B27C3D16700C45440 /* ContentView.swift */,
+				DBC506A127C916E500C45440 /* ArticleDetail.swift */,
+				DBC5069F27C666CA00C45440 /* ArticleList.swift */,
+				DBC6ECFC27C9D6060034EC1E /* ArticleWebView.swift */,
 				DBC5068D27C3D16800C45440 /* Assets.xcassets */,
+				DBC5068B27C3D16700C45440 /* ContentView.swift */,
+				DBC5069D27C3D21E00C45440 /* Item.swift */,
 				DBC5068F27C3D16800C45440 /* Preview Content */,
+				DBC5068927C3D16700C45440 /* QiitaArticleListSwiftUIApp.swift */,
+				DBC5069927C3D1F000C45440 /* Repository.swift */,
 			);
 			path = QiitaArticleListSwiftUI;
 			sourceTree = "<group>";
@@ -137,8 +152,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBC5069E27C3D21E00C45440 /* Item.swift in Sources */,
 				DBC5068C27C3D16700C45440 /* ContentView.swift in Sources */,
+				DBC506A027C666CA00C45440 /* ArticleList.swift in Sources */,
+				DBC506A227C916E500C45440 /* ArticleDetail.swift in Sources */,
 				DBC5068A27C3D16700C45440 /* QiitaArticleListSwiftUIApp.swift in Sources */,
+				DBC6ECFD27C9D6060034EC1E /* ArticleWebView.swift in Sources */,
+				DBC5069A27C3D1F000C45440 /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +289,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"QiitaArticleListSwiftUI/Preview Content\"";
-				DEVELOPMENT_TEAM = WW6AR572VV;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -299,7 +319,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"QiitaArticleListSwiftUI/Preview Content\"";
-				DEVELOPMENT_TEAM = WW6AR572VV;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
