@@ -10,6 +10,8 @@ import SwiftUI
 struct ArticleList: View {
     @ObservedObject var repository = Repository()
     
+    @State private var searchWord = ""
+    
     private func imageData(_ urlString: String?) -> UIImage {
         guard let urlData = try? Data(contentsOf: URL(string: urlString!)!) else {
             fatalError()
@@ -19,19 +21,31 @@ struct ArticleList: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(repository.items, id: \.self) { item in
-                    NavigationLink {
-                        ArticleDetail(url: item.url)
-                    } label: {
-                        HStack() {
-                            Image(uiImage: imageData(item.user.profileImageUrl))
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                            Text(item.title)
+            VStack {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField("search", text: $searchWord, onCommit: {
+                        repository.fetch(searchWord)
+                    })
+                }
+                .padding()
+
+                List {
+                    ForEach(repository.items, id: \.self) { item in
+                        NavigationLink {
+                            ArticleDetail(url: item.url)
+                        } label: {
+                            HStack() {
+                                Image(uiImage: imageData(item.user.profileImageUrl))
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                Text(item.title)
+                            }
                         }
                     }
                 }
+                .listStyle(.grouped)
+                .navigationTitle("Articles")
             }
         }
     }

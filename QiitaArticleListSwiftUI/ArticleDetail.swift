@@ -16,8 +16,6 @@ struct ArticleDetail: View {
 }
 
 struct ArticleDetail_Previews: PreviewProvider {
-    static let repository = Repository()
-    
     static var previews: some View {
         ArticleDetail(url: "https://www.google.com/")
     }
