@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ArticleList: View {
-    @ObservedObject var repository = Repository()
-    
+    @ObservedObject private var viewModel = ArticleListViewModel()
     @State private var searchWord = ""
     
     private func imageData(_ urlString: String?) -> UIImage {
@@ -25,13 +25,13 @@ struct ArticleList: View {
                 HStack {
                     Image(systemName: "magnifyingglass")
                     TextField("search", text: $searchWord, onCommit: {
-                        repository.fetch(searchWord)
+                        viewModel.fetch(searchWord)
                     })
                 }
                 .padding()
 
                 List {
-                    ForEach(repository.items, id: \.self) { item in
+                    ForEach(viewModel.items, id: \.self) { item in
                         NavigationLink {
                             ArticleDetail(url: item.url)
                         } label: {
@@ -48,6 +48,31 @@ struct ArticleList: View {
                 .navigationTitle("Articles")
             }
         }
+    }
+}
+
+class ArticleListViewModel: ObservableObject {
+    @ObservedObject var articleModel = ArticleModel()
+    @Published var items = [Item]()
+
+    private var cancellable: AnyCancellable?
+
+    init() {
+        bind()
+    }
+    
+    private func bind() {
+        cancellable = articleModel.$items.sink { [unowned self] items in
+            self.items = items
+        }
+    }
+    
+    func fetch(_ word: String) {
+        articleModel.fetch(word)
+    }
+    
+    deinit {
+        cancellable?.cancel()
     }
 }
 
