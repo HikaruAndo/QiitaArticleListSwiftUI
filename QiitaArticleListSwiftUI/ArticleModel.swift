@@ -10,6 +10,7 @@ import Combine
 
 class ArticleModel: ObservableObject {
     @Published var items: [Item] = []
+    @Published var isLoading = false
     
     private var cancellable: AnyCancellable?
     private let requestUrlStr = "https://qiita.com/api/v2/items?page=1&per_page=10&query="
@@ -22,6 +23,8 @@ class ArticleModel: ObservableObject {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
 
+        isLoading = true
+        
         cancellable = URLSession.shared.dataTaskPublisher(for: request)
             .tryMap() { element -> Data in
                 guard let httpResponse = element.response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
@@ -31,12 +34,12 @@ class ArticleModel: ObservableObject {
             }
             .decode(type: [Item].self, decoder: decoder)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {completion in
+            .sink(receiveCompletion: { [unowned self] completion in
                 switch completion {
                 case .finished:
-                    print("Finish.")
-                case .failure(let error):
-                    print(error)
+                    self.isLoading = false
+                case .failure(_):
+                    self.isLoading = false
                 }
             }, receiveValue: { [weak self] response in
                 self?.items = response

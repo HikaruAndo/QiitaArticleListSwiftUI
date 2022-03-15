@@ -21,31 +21,40 @@ struct ArticleList: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    TextField("search", text: $searchWord, onCommit: {
-                        viewModel.fetch(searchWord)
-                    })
-                }
-                .padding()
-
-                List {
-                    ForEach(viewModel.items, id: \.self) { item in
-                        NavigationLink {
-                            ArticleDetail(url: item.url)
-                        } label: {
-                            HStack() {
-                                Image(uiImage: imageData(item.user.profileImageUrl))
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                Text(item.title)
+            ZStack {
+                VStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        TextField("search", text: $searchWord, onCommit: {
+                            viewModel.fetch(searchWord)
+                        })
+                    }
+                    .padding()
+                    
+                    List {
+                        ForEach(viewModel.items, id: \.self) { item in
+                            NavigationLink {
+                                ArticleDetail(url: item.url)
+                            } label: {
+                                HStack() {
+                                    Image(uiImage: imageData(item.user.profileImageUrl))
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                    Text(item.title)
+                                }
                             }
                         }
                     }
+                    .listStyle(.grouped)
+                    .navigationTitle("Articles")
                 }
-                .listStyle(.grouped)
-                .navigationTitle("Articles")
+                Group {
+                    if (viewModel.isLoading) {
+                        ProgressView("Loading...")
+                            .padding(.all, 16)
+                            .progressViewStyle(.circular)
+                    }
+                }
             }
         }
     }
@@ -54,17 +63,24 @@ struct ArticleList: View {
 class ArticleListViewModel: ObservableObject {
     @ObservedObject var articleModel = ArticleModel()
     @Published var items = [Item]()
-
-    private var cancellable: AnyCancellable?
-
+    @Published var isLoading = false
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
     init() {
         bind()
     }
     
     private func bind() {
-        cancellable = articleModel.$items.sink { [unowned self] items in
+        articleModel.$items.sink { [unowned self] items in
             self.items = items
         }
+        .store(in: &cancellables)
+        
+        articleModel.$isLoading.sink { [unowned self] isLoading in
+            self.isLoading = isLoading
+        }
+        .store(in: &cancellables)
     }
     
     func fetch(_ word: String) {
@@ -72,7 +88,7 @@ class ArticleListViewModel: ObservableObject {
     }
     
     deinit {
-        cancellable?.cancel()
+        cancellables.forEach { $0.cancel() }
     }
 }
 
